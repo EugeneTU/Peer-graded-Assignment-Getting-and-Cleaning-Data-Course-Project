@@ -36,5 +36,9 @@ tidy_mean_std <- select(tidy_set, contains("mean"), contains("std"))
 tidy_mean_std$subject <- as.factor(tidy_set$subject)
 tidy_mean_std$activity <- as.factor(tidy_set$activity)
 
+average <- tidy_mean_std %>%
+  group_by(subject, activity) %>%
+  summarise_each(funs(mean))
+
 write.table(average, "tidy_set.txt", quote = FALSE, row.names = FALSE)
 
